@@ -1,0 +1,38 @@
+package com.ntnt.chatapp.entities;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ntnt.chatapp.enums.Role;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "ta_role")
+@Getter
+@Setter
+@NoArgsConstructor
+public class RoleEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "i_id")
+    private int id;
+
+    @Column(name = "t_role", length = 50)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "ta_user_role",
+            joinColumns = {@JoinColumn(name = "i_role")},
+            inverseJoinColumns = {@JoinColumn(name = "i_user")}
+    )
+    @JsonBackReference
+    private Set<UserEntity> users;
+}
