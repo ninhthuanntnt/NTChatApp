@@ -1,15 +1,12 @@
 package com.ntnt.chatapp.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ntnt.chatapp.enums.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -33,6 +30,5 @@ public class RoleEntity {
             joinColumns = {@JoinColumn(name = "i_role")},
             inverseJoinColumns = {@JoinColumn(name = "i_user")}
     )
-    @JsonBackReference
     private Set<UserEntity> users;
 }

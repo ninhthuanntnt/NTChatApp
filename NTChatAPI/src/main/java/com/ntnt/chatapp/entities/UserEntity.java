@@ -1,8 +1,6 @@
 package com.ntnt.chatapp.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import com.ntnt.chatapp.enums.UserStatus;
 import lombok.Data;
 import lombok.Getter;
@@ -31,6 +29,7 @@ public class UserEntity {
     private String username;
 
     @Column(name = "t_password")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "t_email", length = 100)

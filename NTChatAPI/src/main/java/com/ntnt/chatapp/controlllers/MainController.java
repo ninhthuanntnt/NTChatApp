@@ -1,16 +1,13 @@
 package com.ntnt.chatapp.controlllers;
 
 import com.ntnt.chatapp.entities.UserEntity;
-import com.ntnt.chatapp.models.JwtResponse;
-import com.ntnt.chatapp.services.JwtService;
+import com.ntnt.chatapp.services.RoleService;
 import com.ntnt.chatapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
@@ -20,15 +17,18 @@ public class MainController {
     @Autowired
     private UserService userService;
     @Autowired
-    private JwtService jwtService;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private RoleService roleService;
 
     @GetMapping(value = "/user/{userId}")
-    public @ResponseBody UserEntity showUserInfo(@PathVariable("userId") Integer userId){
+    public UserEntity showUserInfo(@PathVariable("userId") Integer userId){
         Optional<UserEntity> userOpt = userService.getUser(userId);
-        userOpt.ifPresent(userEntity -> userEntity.setPassword(null));
+//        userOpt.ifPresent(userEntity -> userEntity.setPassword(null));
 
         return userOpt.orElse(null);
+    }
+
+    @GetMapping(value = "/role")
+    public ResponseEntity<?> getAllRole(){
+        return ResponseEntity.ok(roleService.getAllRoles());
     }
 }

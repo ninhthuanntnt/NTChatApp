@@ -33,4 +33,5 @@ build/
 .vscode/
 
 ### Datasource info ###
-/src/main/resources/application.datasource.properties
+/src/main/resources/application.private.properties
+/src/main/java/com/ntnt/chatapp/MainTest.java
