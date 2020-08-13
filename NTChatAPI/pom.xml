@@ -43,6 +43,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!--Hibernate validator-->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.1.0.Final</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate5 -->
 
         <dependency>
@@ -51,21 +57,20 @@
             <version>2.11.0</version>
         </dependency>
 
-
+        <!-- Rendering setter, getter, constructor       -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+        <!-- JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.auth0/auth0 -->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>auth0</artifactId>
@@ -76,7 +81,7 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>auth0-spring-security-api</artifactId>
-            <version>1.0.0</version>
+            <version>1.4.0</version>
         </dependency>
 
         <dependency>

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Message implements Serializable {
+public class MessageResponse implements Serializable {
     private static final Long serialVersionUID = 3649681269866L;
 
     private String userMessage;

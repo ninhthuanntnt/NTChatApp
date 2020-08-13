@@ -2,13 +2,15 @@ package com.ntnt.chatapp.entities;
 
 import com.fasterxml.jackson.annotation.*;
 import com.ntnt.chatapp.enums.UserStatus;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
@@ -30,12 +32,15 @@ public class UserEntity {
 
     @Column(name = "t_password")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotBlank @NotNull
     private String password;
 
     @Column(name = "t_email", length = 100)
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)+$", message = "Email isn't valid")
     private String email;
 
     @Column(name = "t_phone_number", length = 11)
+    @Pattern(regexp = "(0|(\\+84))[0-9]{9}", message = "Phone isn't valid")
     private String phoneNumber;
 
     @Column(name = "t_address")

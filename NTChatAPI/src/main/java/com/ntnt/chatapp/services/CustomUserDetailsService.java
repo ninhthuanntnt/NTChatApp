@@ -11,14 +11,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserEntity> userOpt = userRepository.findByUsername(username);
+        Optional<UserEntity> userOpt = userRepo.findByUsername(username);
         Optional<CustomUserDetails> userDetailsOpt = userOpt.map(CustomUserDetails::new);
         return userDetailsOpt.orElse(null);
     }
