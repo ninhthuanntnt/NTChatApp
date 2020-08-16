@@ -1,10 +1,9 @@
 package com.ntnt.chatapp.controlllers;
 
-import com.ntnt.chatapp.entities.UserEntity;
+import com.ntnt.chatapp.models.entities.UserEntity;
 import com.ntnt.chatapp.services.RoleService;
 import com.ntnt.chatapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

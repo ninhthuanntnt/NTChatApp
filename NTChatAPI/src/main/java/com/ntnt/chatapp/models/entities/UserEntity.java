@@ -1,16 +1,19 @@
-package com.ntnt.chatapp.entities;
+package com.ntnt.chatapp.models.entities;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ntnt.chatapp.enums.UserStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Calendar;
 import java.util.Set;
 
 @Entity
@@ -27,19 +30,20 @@ public class UserEntity {
     @Column(name = "t_name", length = 100)
     private String name;
 
-    @Column(name = "t_username", length = 100)
+    @Column(name = "t_username", length = 100, unique = true)
     private String username;
 
     @Column(name = "t_password")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotBlank @NotNull
+    @NotEmpty(message = "Password is not empty")
+    @NotNull(message = "Password is not null")
     private String password;
 
-    @Column(name = "t_email", length = 100)
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)+$", message = "Email isn't valid")
+    @Column(name = "t_email", length = 100, unique = true)
+    @Email(message = "Email is not valid")
     private String email;
 
-    @Column(name = "t_phone_number", length = 11)
+    @Column(name = "t_phone_number", length = 11, unique = true)
     @Pattern(regexp = "(0|(\\+84))[0-9]{9}", message = "Phone isn't valid")
     private String phoneNumber;
 
@@ -49,9 +53,22 @@ public class UserEntity {
     @Column(name = "t_description", columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "d_created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Calendar createdAt;
+
+    @Column(name = "d_updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private Calendar updatedAt;
+
     @Column(name = "t_status", length = 50)
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @Column(name = "t_avatar_url")
+    private String avatarUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -60,4 +77,8 @@ public class UserEntity {
             inverseJoinColumns = {@JoinColumn(name = "i_role")}
     )
     private Set<RoleEntity> roles;
+
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    private UserVerificationEntity userVerification;
 }

@@ -1,8 +1,8 @@
 package com.ntnt.chatapp.controlllers;
 
-import com.ntnt.chatapp.entities.UserEntity;
-import com.ntnt.chatapp.models.JwtResponse;
-import com.ntnt.chatapp.models.MessageResponse;
+import com.ntnt.chatapp.models.entities.UserEntity;
+import com.ntnt.chatapp.models.responses.JwtResponse;
+import com.ntnt.chatapp.models.responses.MessageResponse;
 import com.ntnt.chatapp.services.JwtService;
 import com.ntnt.chatapp.services.UserService;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.Calendar;
 
 @RestController
 public class IdentityController {
@@ -61,14 +61,16 @@ public class IdentityController {
 
     @PostMapping(value = "/register")
     public ResponseEntity<?> register(@RequestBody UserEntity user){
-        Optional<UserEntity> userOpt = userService.getUser(user.getUsername());
+        String field = userService.getExistedUserField(user);
 
-        if(userOpt.isPresent()){
-            MessageResponse message = new MessageResponse("Sorry this username has been used",
-                                            "Database: username is a unique field",
+        if(field == null){
+            MessageResponse message = new MessageResponse(String.format("Sorry this %s has been used", field),
+                                            String.format("Database: %s is a unique field", field),
                                             20001);
             return new ResponseEntity<>(message, HttpStatus.SEE_OTHER);
         }else{
+            // init before insert into db
+            user.setCreatedAt(Calendar.getInstance());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             UserEntity newUser = userService.addUser(user);
 

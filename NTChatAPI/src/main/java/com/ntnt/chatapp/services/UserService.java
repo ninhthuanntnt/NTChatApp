@@ -1,6 +1,6 @@
 package com.ntnt.chatapp.services;
 
-import com.ntnt.chatapp.entities.UserEntity;
+import com.ntnt.chatapp.models.entities.UserEntity;
 import com.ntnt.chatapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +29,21 @@ public class UserService{
         return newUser;
     }
 
+    public String getExistedUserField(UserEntity user){
+        Optional<UserEntity> userOpt = userRepo.findByUsernameOrEmailOrPhoneNumber(
+                                                        user.getUsername(),
+                                                        user.getEmail(),
+                                                        user.getPhoneNumber());
+
+        return userOpt.map(userEntity -> {
+            if(userEntity.getUsername().equals(user.getUsername()))
+                return user.getUsername();
+            else if(userEntity.getEmail().equals(user.getEmail()))
+                return user.getEmail();
+            else if(userEntity.getPhoneNumber().equals(user.getPhoneNumber()))
+                return user.getPhoneNumber();
+            else
+                return null;
+        }).orElse(null);
+    }
 }

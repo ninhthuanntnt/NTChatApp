@@ -1,7 +1,7 @@
 package com.ntnt.chatapp.services;
 
-import com.ntnt.chatapp.models.CustomUserDetails;
-import com.ntnt.chatapp.models.JwtResponse;
+import com.ntnt.chatapp.models.system.CustomUserDetails;
+import com.ntnt.chatapp.models.responses.JwtResponse;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

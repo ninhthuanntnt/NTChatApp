@@ -1,6 +1,6 @@
-package com.ntnt.chatapp.models;
+package com.ntnt.chatapp.models.system;
 
-import com.ntnt.chatapp.entities.UserEntity;
+import com.ntnt.chatapp.models.entities.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

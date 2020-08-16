@@ -1,6 +1,6 @@
 package com.ntnt.chatapp.exceptions;
 
-import com.ntnt.chatapp.models.MessageResponse;
+import com.ntnt.chatapp.models.responses.MessageResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.MessageInterpolator;
 import java.util.Set;
 
 @RestControllerAdvice

@@ -1,4 +1,4 @@
-package com.ntnt.chatapp.models;
+package com.ntnt.chatapp.models.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

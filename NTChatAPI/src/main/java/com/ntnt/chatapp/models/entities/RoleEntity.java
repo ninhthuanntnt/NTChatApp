@@ -1,6 +1,5 @@
-package com.ntnt.chatapp.entities;
+package com.ntnt.chatapp.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ntnt.chatapp.enums.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
