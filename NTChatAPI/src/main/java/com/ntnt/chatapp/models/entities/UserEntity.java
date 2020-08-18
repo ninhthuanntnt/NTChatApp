@@ -14,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -81,4 +82,23 @@ public class UserEntity {
     @OneToOne(mappedBy = "user")
     @JsonIgnore
     private UserVerificationEntity userVerification;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private AccessEntity access;
+
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)
+    private List<MessageEntity> sendedMessages;
+
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
+    private List<MessageEntity> receivedMessages;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<FriendEntity> friends;
+
+    @OneToMany(mappedBy = "creator", fetch = FetchType.LAZY)
+    private List<GroupEntity> groups;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<ParticipantEntity> participants;
+
 }
