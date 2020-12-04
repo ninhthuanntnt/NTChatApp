@@ -37,8 +37,8 @@ public class IdentityController {
     private static final Logger logger = LoggerFactory.getLogger(IdentityController.class.getName());
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody UserEntity user){
-        try{
+    public ResponseEntity<?> login(@RequestBody UserEntity user) {
+        try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
             );
@@ -47,28 +47,28 @@ public class IdentityController {
             JwtResponse jwt = jwtService.generateJwtResponse(authentication);
 
             return ResponseEntity.ok(jwt);
-        }catch (InternalAuthenticationServiceException ex){
+        } catch (InternalAuthenticationServiceException ex) {
             logger.error(Arrays.toString(ex.getStackTrace()));
         }
 
         return new ResponseEntity<>(new MessageResponse("Username or password is incorrect",
-                                                "Username not found",
-                                                HttpStatus.UNAUTHORIZED.value()),
-                                    HttpStatus.UNAUTHORIZED);
+                                                            "Username not found",
+                                                            HttpStatus.UNAUTHORIZED.value()),
+                                                            HttpStatus.UNAUTHORIZED);
 
 
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<?> register(@RequestBody UserEntity user){
+    public ResponseEntity<?> register(@RequestBody UserEntity user) {
         String field = userService.getExistedUserField(user);
 
-        if(field == null){
+        if (field != null) {
             MessageResponse message = new MessageResponse(String.format("Sorry this %s has been used", field),
-                                            String.format("Database: %s is a unique field", field),
-                                            20001);
+                    String.format("Database: %s is a unique field", field),
+                    20001);
             return new ResponseEntity<>(message, HttpStatus.SEE_OTHER);
-        }else{
+        } else {
             // init before insert into db
             user.setCreatedAt(Calendar.getInstance());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
